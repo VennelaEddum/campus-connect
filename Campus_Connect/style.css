@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fb;
+  color: #222;
+}
+
+.header {
+  background: #1f6feb;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.badge {
+  display: inline-block;
+  background: #10b981;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+button {
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+}
+
+.btn-request { background: #2563eb; color: white; }
+.btn-disabled { background: #9ca3af; color: white; cursor: not-allowed; }
+.btn-approve { background: #16a34a; color: white; }
+.btn-reject { background: #dc2626; color: white; }
+
+.go-dashboard-btn {
+    position: fixed;
+    top: 20px;
+    left: 25px;
+    background: white;
+    color: blue;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+
+#backBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: #e5e7eb;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+
+.link-box {
+  margin-top: 10px;
+  background: #ecfdf5;
+  border: 1px dashed #16a34a;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.admin-panel {
+  margin-top: 40px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+}

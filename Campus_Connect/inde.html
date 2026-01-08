@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusConnect — Communities</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <h1>CampusConnect — Student Communities</h1>
+    <p>Join verified, admin-managed college clubs securely.</p>
+    <button class="go-dashboard-btn" onclick="goToDashboard()">
+    <i class="fas fa-arrow-left"></i> Back
+</button>
+
+  </header>
+
+  <main class="container">
+
+    <!-- Communities Section -->
+    <section>
+      <h2>Available Communities</h2>
+
+      <div class="cards" id="communityList">
+        <!-- Cards will be injected from JavaScript -->
+      </div>
+    </section>
+
+    <!-- Simulated Admin Dashboard -->
+    <section class="admin-panel">
+      <h2>Admin Dashboard (Simulation)</h2>
+      <p>Admins approve or reject join requests.</p>
+
+      <div id="adminRequests"></div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

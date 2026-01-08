@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusConnect | Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>📂 Projects</h2>
+
+        <!-- FACULTY CONTROLS -->
+        <div id="facultyControls" style="display:none;">
+            <button class="btn btn-primary me-2" onclick="toggleAddProject()">+ Add Project</button>
+            <button class="btn btn-success" onclick="toggleUpload()">⬆ Upload Project</button>
+        </div>
+    </div>
+
+    <!-- ADD PROJECT FORM -->
+    <div id="addProjectForm" class="card p-3 mb-3" style="display:none;">
+        <h5>Add New Project</h5>
+
+        <input type="text" id="title" class="form-control mb-2" placeholder="Project Title">
+        <textarea id="desc" class="form-control mb-2" placeholder="Project Description"></textarea>
+        <input type="url" id="github" class="form-control mb-2" placeholder="GitHub Link">
+
+        <button class="btn btn-success" onclick="addProject()">Post Project</button>
+    </div>
+
+    <!-- UPLOAD PROJECT FORM -->
+    <div id="uploadForm" class="card p-3 mb-3" style="display:none;">
+        <h5>Upload Project File</h5>
+
+        <input type="file" id="file" class="form-control mb-2"
+               accept=".pdf,.zip,.ppt,.pptx">
+
+        <button class="btn btn-primary" onclick="uploadFile()">Upload</button>
+    </div>
+
+    <!-- PROJECTS LIST -->
+    <div id="projectsList"></div>
+
+</div>
+
+<script>
+/* ===============================
+   ROLE CHECK (faculty / student)
+================================ */
+const role = localStorage.getItem("role") || "student";
+const facultyControls = document.getElementById("facultyControls");
+
+if (role === "faculty") {
+    facultyControls.style.display = "block";
+}
+
+/* ===============================
+   TOGGLE FORMS
+================================ */
+function toggleAddProject() {
+    document.getElementById("addProjectForm").style.display =
+        document.getElementById("addProjectForm").style.display === "none"
+        ? "block" : "none";
+    document.getElementById("uploadForm").style.display = "none";
+}
+
+function toggleUpload() {
+    document.getElementById("uploadForm").style.display =
+        document.getElementById("uploadForm").style.display === "none"
+        ? "block" : "none";
+    document.getElementById("addProjectForm").style.display = "none";
+}
+
+/* ===============================
+   PROJECT STORAGE
+================================ */
+let projects = JSON.parse(localStorage.getItem("projects") || "[]");
+
+function addProject() {
+    const title = document.getElementById("title").value;
+    const desc = document.getElementById("desc").value;
+    const github = document.getElementById("github").value;
+
+    if (!title || !desc || !github) {
+        alert("Fill all fields");
+        return;
+    }
+
+    projects.push({
+        title,
+        desc,
+        github,
+        votes: 0
+    });
+
+    localStorage.setItem("projects", JSON.stringify(projects));
+    document.getElementById("addProjectForm").reset;
+    document.getElementById("addProjectForm").style.display = "none";
+    renderProjects();
+}
+
+/* ===============================
+   UPLOAD FILE (DEMO)
+================================ */
+function uploadFile() {
+    const file = document.getElementById("file").files[0];
+    if (!file) {
+        alert("Select a file first");
+        return;
+    }
+    alert("File uploaded successfully (demo)");
+    document.getElementById("uploadForm").style.display = "none";
+}
+
+/* ===============================
+   RENDER PROJECTS
+================================ */
+function renderProjects() {
+    const list = document.getElementById("projectsList");
+    list.innerHTML = "";
+
+    projects.forEach((p, index) => {
+        list.innerHTML += `
+            <div class="card p-3 mb-3">
+                <h5>${p.title}</h5>
+                <p>${p.desc}</p>
+                <a href="${p.github}" target="_blank">🔗 GitHub Repository</a>
+
+                <div class="mt-2">
+                    <button class="btn btn-outline-primary btn-sm"
+                            onclick="upvote(${index})">
+                        ▲ ${p.votes}
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm"
+                            onclick="saveProject(${index})">
+                        🔖 Save
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+/* ===============================
+   ACTIONS
+================================ */
+function upvote(index) {
+    projects[index].votes++;
+    localStorage.setItem("projects", JSON.stringify(projects));
+    renderProjects();
+}
+
+function saveProject(index) {
+    const saved = JSON.parse(localStorage.getItem("savedItems") || "[]");
+    saved.push(projects[index]);
+    localStorage.setItem("savedItems", JSON.stringify(saved));
+    alert("Project saved!");
+}
+
+/* INITIAL LOAD */
+renderProjects();
+</script>
+
+</body>
+</html>
